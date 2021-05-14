@@ -37,31 +37,25 @@ def main(args):
   # Makes dummys and sets parameters.
   dummys = []
   for dummy_id in range(args.num_dummys):
-    dummy = sst.Component('Dummy_{}'.format(dummy_id), 'benchmark.Dummy')
+    dummy = sst.Component('Dummy_{}'.format(dummy_id), 'fooprojbar.Dummy')
     dummy.addParam('num_dummys', args.num_dummys)
     if args.initial_events != None:
       dummy.addParam('initial_events', args.initial_events)
-    if args.stagger_events != None:
-      dummy.addParam('stagger_events', args.stagger_events)
-    if args.look_ahead != None:
-      dummy.addParam('look_ahead', args.look_ahead)
-    if args.remote_probability != None:
-      dummy.addParam('remote_probability', args.remote_probability)
-    if args.num_cycles != None:
-      dummy.addParam('num_cycles', args.num_cycles)
+    if args.total_events != None:
+      dummy.addParam('total_events', args.total_events)
     dummys.append(dummy)
 
   # Connects all dummys to all other dummys via links.
   port_nums = [0] * args.num_dummys
   for dummy_a in range(args.num_dummys):
-    for dummy_b in range(dummy_a, args.num_dummys):
+    for dummy_b in range(dummy_a + 1, args.num_dummys):
+      assert dummy_a < dummy_b
       link_name = 'link_{}_{}'.format(dummy_a, dummy_b)
-      if dummy_a != dummy_b:
-        link = sst.Link(link_name, '1ns')
-        link.connect((dummys[dummy_a], 'port_{}'.format(port_nums[dummy_b])),
-                     (dummys[dummy_b], 'port_{}'.format(port_nums[dummy_a])))
-        port_nums[dummy_a] += 1
-        port_nums[dummy_b] += 1
+      link = sst.Link(link_name, '1ns')
+      link.connect((dummys[dummy_a], 'port_{}'.format(port_nums[dummy_a])),
+                   (dummys[dummy_b], 'port_{}'.format(port_nums[dummy_b])))
+      port_nums[dummy_a] += 1
+      port_nums[dummy_b] += 1
 
   # Limits the verbosity of statistics to any with a load level from 0-7.
   sst.setStatisticLoadLevel(7)
@@ -71,7 +65,7 @@ def main(args):
   sst.setStatisticOutputOption('filepath', args.stats_file)
 
   # Enables statistics on both dummys.
-  sst.enableAllStatisticsForComponentType('benchmark.Dummy')
+  sst.enableAllStatisticsForComponentType('fooprojbar.Dummy')
 
 if __name__ == '__main__':
   ap = argparse.ArgumentParser()
