@@ -2,11 +2,11 @@
 #
 #
 
-# Set Version of SST Bksim Library
-AC_INIT([SST Bksim Library], [-dev], [n.mcdonald83@gmail.com])
+# Set Version of SST FooProjBar Library
+AC_INIT([SST FooProjBar Library], [-dev], [FOOEMAILBAR])
 
 AC_PREREQ([2.59])
-AC_COPYRIGHT([Copyright Nic McDonald, 2021])
+AC_COPYRIGHT([Copyright FOONAMEBAR, FOOYEARBAR])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_MACRO_DIR([config])
@@ -15,9 +15,9 @@ AM_INIT_AUTOMAKE([1.9.6 foreign dist-bzip2 subdir-objects no-define tar-pax])
 # If Automake supports silent rules, enable them.
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 
-AC_CONFIG_HEADER([src/sst_bksim_config.h])
+AC_CONFIG_HEADER([src/sst_fooprojbar_config.h])
 
-m4_include([config/sst_bksim_include.m4])
+m4_include([config/sst_fooprojbar_include.m4])
 
 AC_PROG_CC
 AM_PROG_CC_C_O
@@ -45,7 +45,7 @@ SST_CORE_CHECK_INSTALL()
 
 SST_CHECK_OSX()
 
-SST_BKSIM_CONFIG_OUTPUT()
+SST_FOOPROJBAR_CONFIG_OUTPUT()
 
 # Compile flags come from SST-Core, add or remove extra warnings
 # depending on the use-picky flag
@@ -56,31 +56,31 @@ AS_IF([test "x$use_picky" = "xyes"],
 CFLAGS="$CFLAGS $WARNFLAGS"
 CXXFLAGS="$CXXFLAGS $WARNFLAGS"
 
-AC_MSG_CHECKING([for SST-Bksim Git Branch, Head SHA and Commit Count])
+AC_MSG_CHECKING([for SST-FooProjBar Git Branch, Head SHA and Commit Count])
 if test -d ".git" ; then
-    SSTBKSIM_GIT_BRANCH=`git rev-parse --abbrev-ref HEAD`
-    AC_MSG_RESULT([${SSTBKSIM_GIT_BRANCH}])
-    SSTBKSIM_GIT_HEADSHA=`git rev-parse HEAD`
-    AC_MSG_RESULT([${SSTBKSIM_GIT_HEADSHA}])
-    SSTBKSIM_GIT_COMMITCOUNT=`git rev-list HEAD | wc -l | sed -e 's/^ *//g'`
-    AC_MSG_RESULT([${SSTBKSIM_GIT_COMMITCOUNT}])
+    SSTFOOPROJBAR_GIT_BRANCH=`git rev-parse --abbrev-ref HEAD`
+    AC_MSG_RESULT([${SSTFOOPROJBAR_GIT_BRANCH}])
+    SSTFOOPROJBAR_GIT_HEADSHA=`git rev-parse HEAD`
+    AC_MSG_RESULT([${SSTFOOPROJBAR_GIT_HEADSHA}])
+    SSTFOOPROJBAR_GIT_COMMITCOUNT=`git rev-list HEAD | wc -l | sed -e 's/^ *//g'`
+    AC_MSG_RESULT([${SSTFOOPROJBAR_GIT_COMMITCOUNT}])
 else
-    SSTBKSIM_GIT_BRANCH="N/A"
-    AC_MSG_RESULT([${SSTBKSIM_GIT_BRANCH}])
-    SSTBKSIM_GIT_HEADSHA="${PACKAGE_VERSION}"
-    AC_MSG_RESULT([${SSTBKSIM_GIT_HEADSHA}])
-    SSTBKSIM_GIT_COMMITCOUNT="0"
-    AC_MSG_RESULT([${SSTBKSIM_GIT_COMMITCOUNT}])
+    SSTFOOPROJBAR_GIT_BRANCH="N/A"
+    AC_MSG_RESULT([${SSTFOOPROJBAR_GIT_BRANCH}])
+    SSTFOOPROJBAR_GIT_HEADSHA="${PACKAGE_VERSION}"
+    AC_MSG_RESULT([${SSTFOOPROJBAR_GIT_HEADSHA}])
+    SSTFOOPROJBAR_GIT_COMMITCOUNT="0"
+    AC_MSG_RESULT([${SSTFOOPROJBAR_GIT_COMMITCOUNT}])
 fi
 
-AC_SUBST(SSTBKSIM_GIT_BRANCH)
-AC_DEFINE_UNQUOTED([SSTBKSIM_GIT_BRANCH], ["$SSTBKSIM_GIT_BRANCH"], [SST-Bksim Git Branch])
+AC_SUBST(SSTFOOPROJBAR_GIT_BRANCH)
+AC_DEFINE_UNQUOTED([SSTFOOPROJBAR_GIT_BRANCH], ["$SSTFOOPROJBAR_GIT_BRANCH"], [SST-FooProjBar Git Branch])
 
-AC_SUBST(SSTBKSIM_GIT_HEADSHA)
-AC_DEFINE_UNQUOTED([SSTBKSIM_GIT_HEADSHA], ["$SSTBKSIM_GIT_HEADSHA"], [SST-Bksim Git Head SHA])
+AC_SUBST(SSTFOOPROJBAR_GIT_HEADSHA)
+AC_DEFINE_UNQUOTED([SSTFOOPROJBAR_GIT_HEADSHA], ["$SSTFOOPROJBAR_GIT_HEADSHA"], [SST-FooProjBar Git Head SHA])
 
-AC_SUBST(SSTBKSIM_GIT_COMMITCOUNT)
-AC_DEFINE_UNQUOTED([SSTBKSIM_GIT_COMMITCOUNT], ["$SSTBKSIM_GIT_COMMITCOUNT"], [SST-Bksim Git Commit Count])
+AC_SUBST(SSTFOOPROJBAR_GIT_COMMITCOUNT)
+AC_DEFINE_UNQUOTED([SSTFOOPROJBAR_GIT_COMMITCOUNT], ["$SSTFOOPROJBAR_GIT_COMMITCOUNT"], [SST-FooProjBar Git Commit Count])
 
 CC_VERSION=`$CC --version | sed -e ':a' -e 'N' -e '$!ba' -e 's/\n/%/g' | awk -F'%' '{print $1}'`
 AC_SUBST(CC_VERSION)
@@ -91,14 +91,14 @@ AC_CONFIG_FILES([
   Makefile
   src/Makefile
   src/sst/Makefile
-  src/sst/bksim/Makefile
+  src/sst/fooprojbar/Makefile
 ])
 
 AC_OUTPUT
 
 echo ""
 echo "-------------------------------------------------------"
-echo "SST Bksim Configuration completed."
+echo "SST FooProjBar Configuration completed."
 echo "-------------------------------------------------------"
 echo "Build Environment:"
 echo ""
@@ -106,15 +106,15 @@ if test "x$SST_PREVIEW_BUILD" = "xyes"; then
 echo "-- PREVIEW BUILD --"
 echo ""
 fi
-printf "%38s : %s\n" "SST-Bksim Version" "$PACKAGE_VERSION"
-if test "x$SSTBKSIM_GIT_HEADSHA" != "x$PACKAGE_VERSION"; then
-printf "%38s : %s\n" "Git Branch" "$SSTBKSIM_GIT_BRANCH"
-printf "%38s : %s\n" "Git HEAD SHA" "$SSTBKSIM_GIT_HEADSHA"
-printf "%38s : %s\n" "Branch Commit Count" "$SSTBKSIM_GIT_COMMITCOUNT"
+printf "%38s : %s\n" "SST-FooProjBar Version" "$PACKAGE_VERSION"
+if test "x$SSTFOOPROJBAR_GIT_HEADSHA" != "x$PACKAGE_VERSION"; then
+printf "%38s : %s\n" "Git Branch" "$SSTFOOPROJBAR_GIT_BRANCH"
+printf "%38s : %s\n" "Git HEAD SHA" "$SSTFOOPROJBAR_GIT_HEADSHA"
+printf "%38s : %s\n" "Branch Commit Count" "$SSTFOOPROJBAR_GIT_COMMITCOUNT"
 else
-printf "%38s : %s\n" "Version" "SST-Bksim $PACKAGE_VERSION"
+printf "%38s : %s\n" "Version" "SST-FooProjBar $PACKAGE_VERSION"
 fi
-printf "%38s : %s\n" "SST-Bksim Prefix" "$prefix"
+printf "%38s : %s\n" "SST-FooProjBar Prefix" "$prefix"
 printf "%38s : %s\n" "SST-Core Prefix" "$SST_PREFIX"
 
 printf "%38s : %s\n" "Preprocessor" "$CPP"
@@ -169,14 +169,14 @@ done
 
 echo ""
 echo "-------------------------------------------------------"
-echo "Configuration Information (Make will build the following bksim):"
+echo "Configuration Information (Make will build the following fooprojbar):"
 echo ""
 
-for e in $dist_bksim_libraries
+for e in $dist_fooprojbar_libraries
 do
-    echo "$active_bksim_libraries" | grep "$e" >/dev/null
+    echo "$active_fooprojbar_libraries" | grep "$e" >/dev/null
     if test $? -eq 0 ; then
-        if test -e "./src/sst/bksim/$e/.deprecated" ; then
+        if test -e "./src/sst/fooprojbar/$e/.deprecated" ; then
             msg="YES - DEPRECATED"
         else
             msg="YES"

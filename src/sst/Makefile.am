@@ -1,4 +1,4 @@
 
 SUBDIRS = \
-	bksim
+	fooprojbar
 
